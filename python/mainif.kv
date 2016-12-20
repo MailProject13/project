@@ -1,0 +1,742 @@
+<LoginScreen>:
+    name: 'LoginScreen'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0.3, 1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+    Image:
+        id: logotype
+        source: './images/logos/load_logo.png'
+        pos_hint: {'x': 0.265, 'y': 0.5}
+        size_hint: .45, .45
+        allow_stretch: True #image in full screen
+        keep_ratio: True #image in full screen
+
+    Label:
+        id: label_login
+        text: 'Your login/Email'
+        theme_text_color: 'Custom'
+        text_color: .7, .2, .2, 1
+        font_size: '18sp'
+        pos_hint: {'x': 0, 'y': -0.1}
+
+    TextInput:
+        id: login_field
+        multiline: False
+        pos_hint: {'x': .2, 'y': .33}
+        size_hint: .6, .05
+
+    Label:
+        id: label_password
+        text: 'Your password'
+        font_size: '18sp'
+        pos_hint: {'x': 0, 'y':-0.2}
+
+    TextInput:
+        id: passwd_field
+        password: True
+        multiline: False
+        pos_hint: {'x': .2, 'y': .23}
+        size_hint: .6, .05
+
+    Button:
+        id: authorize
+        text: 'Log in'
+        size_hint: .4, .1
+        pos_hint: {'x': .3, 'y': .1}
+        on_press:
+            root.login=login_field.text
+            root.passwd=passwd_field.text
+            root.manager.transition.direction = 'left'
+            if root.comeIn(): root.manager.current = 'InterfaceScreen'
+            login_field.text=''
+            passwd_field.text=''
+
+
+
+
+<InterfaceScreen>:
+    name: 'InterfaceScreen'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.258,0.521,0.956,1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+    ActionBar:
+        pos_hint: {'x': 0, 'y': .923}
+        size_hint: 1, .0769
+        app_icon: './images/logos/park_logo.png'
+        previous_image: './images/logos/park_logo.png'
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                icon: './images/logos/park_logo.png'
+                title: 'TechnoMail'
+                with_previous: False
+            ActionOverflow:
+            ActionGroup:
+                text: 'Опции'
+                ActionButton:
+                    icon: './images/logos/settings.png'
+                    text: 'Настройки'
+                    on_press:
+                        root.manager.transition.direction = 'left'
+                        root.manager.current = 'SettingsScreen'
+                ActionButton:
+                    icon: './images/logos/close.png'
+                    on_press:
+                        app.stop()
+                    text: 'Выход'
+
+
+    TabbedPanel:
+        id: menu
+        size_hint: 1, .923
+        do_default_tab: False
+        tab_pos: 'bottom_mid'
+        tab_width: root.width/5.1
+        tab_height: root.height/13
+        ScrollView:
+            id: tab_me_content
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: 1, 0.458, 0.219, 1
+                    Rectangle:
+                        # self here refers to the widget i.e BoxLayout
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    text: 'We are already working on it`s developing!'
+                    text_color: 0,0,0,1
+        ScrollView:
+            id: tab_messages_content
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: 1, 0.458, 0.219, 1
+                    Rectangle:
+                        # self here refers to the widget i.e BoxLayout
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    text: 'We are already working on it`s developing!'
+                    text_color: 0,0,0,1
+
+        FloatLayout:
+            id: tab_news_content
+            canvas.before:
+                Color:
+                    rgba: 1, 0.458, 0.219, 1
+                Rectangle:
+                    # self here refers to the widget i.e BoxLayout
+                    pos: tab_news_content.pos
+                    size: tab_news_content.size
+            GridLayout:
+                pos: tab_news_content.pos
+                size: tab_news_content.size
+                padding: 20
+                spacing: 10
+                cols: 1
+                height: self.minimum_height
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: news_first
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: first_news_title
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: news_first.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        #size: news_first.size
+                        id: first_news_info
+                        valign: 'middle'
+                        halign: 'center'
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: news_first.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: first_news_text
+                        text:
+                        color: 0,0,0,1
+                        font_size: '8sp'
+                        text_size: news_first.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: first_news_author
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: news_first.width - 5, None
+                    Label:
+                        id: first_news_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: news_first.width - 5, None
+
+
+        ScrollView:
+            size: self.size
+            id: tab_subscribed_content
+            GridLayout:
+                padding: 0,0
+                spacing: 0,0
+                cols: 1
+                # set GridLayout to be unrestricted vertically
+                size_hint_y:  None
+                # set the height of the layout to the combined height of the children
+                height: self.minimum_height
+                canvas:
+                    Color:
+                        rgba: (1, 0, 0, .5) # DarkOliveGreen
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                GridLayout:
+                    size_hint_y: None
+                    id: subscribed_first
+                    cols: 1
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: subscribed_first.pos
+                            size: subscribed_first.size
+                    Label:
+                        id: first_subscribed_title
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: subscribed_first.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: first_subscribed_info
+                        valign: 'middle'
+                        halign: 'center'
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: subscribed_first.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: first_subscribed_text
+                        text:
+                        color: 0,0,0,1
+                        font_size: '8sp'
+                        text_size: subscribed_first.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: first_subscribed_author
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: subscribed_first.width - 5, None
+                    Label:
+                        id: first_subscribed_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: subscribed_first.width - 5, None
+
+                GridLayout:
+                    size_hint_y: None
+                    id: subscribed_second
+                    cols: 1
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: tab_subscribed_content.pos
+                            size: tab_subscribed_content.size
+                    Label:
+                        id: second_subscribed_title
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: subscribed_second.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: second_subscribed_info
+                        valign: 'middle'
+                        halign: 'center'
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: subscribed_second.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: second_subscribed_text
+                        text:
+                        color: 0,0,0,1
+                        font_size: '8sp'
+                        text_size: subscribed_second.width - 5, None
+                    Label:
+                    Label:
+                    Label:
+                        id: second_subscribed_author
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: subscribed_second.width - 5, None
+                    Label:
+                        id: second_subscribed_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '10sp'
+                        text_size: subscribed_second.width - 5, None
+
+        FloatLayout:
+            id: tab_schedule_content
+            canvas.before:
+                Color:
+                    rgba: 1, 0.458, 0.219, 1
+                Rectangle:
+                    # self here refers to the widget i.e BoxLayout
+                    pos: tab_schedule_content.pos
+                    size: tab_schedule_content.size
+            GridLayout:
+                pos: tab_schedule_content.pos
+                size: tab_schedule_content.size
+                padding: 20
+                spacing: 10
+                cols: 2
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_first
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: first_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_first.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: first_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_first.width - 5, None
+                    Label:
+                        id: first_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_first.width - 5, None
+                    Label:
+                        id: first_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_first.width - 5, None
+                    Label:
+                        id: first_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_first.width - 5, None
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_second
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: second_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_second.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: second_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_second.width - 5, None
+                    Label:
+                        id: second_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_second.width - 5, None
+                    Label:
+                        id: second_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_second.width - 5, None
+                    Label:
+                        id: second_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_second.width - 5, None
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_third
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: third_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_third.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: third_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_third.width - 5, None
+                    Label:
+                        id: third_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_third.width - 5, None
+                    Label:
+                        id: third_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_third.width - 5, None
+                    Label:
+                        id: third_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_third.width - 5, None
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_fourth
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: fourth_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_fourth.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: fourth_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fourth.width - 5, None
+                    Label:
+                        id: fourth_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fourth.width - 5, None
+                    Label:
+                        id: fourth_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fourth.width - 5, None
+                    Label:
+                        id: fourth_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fourth.width - 5, None
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_fifth
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: fifth_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_fifth.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: fifth_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fifth.width - 5, None
+                    Label:
+                        id: fifth_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fifth.width - 5, None
+                    Label:
+                        id: fifth_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fifth.width - 5, None
+                    Label:
+                        id: fifth_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_fifth.width - 5, None
+
+                GridLayout:
+                    cols:1
+                    padding: 0
+                    id: box_sixth
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            # self here refers to the widget i.e BoxLayout
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: sixth_day
+                        text:
+                        color: 0,0,0,1
+                        font_size: '14sp'
+                        text_size: box_sixth.width - 5, None
+                        valign: 'middle'
+                        halign: 'center'
+                    Label:
+                        id: sixth_data
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_sixth.width - 5, None
+                    Label:
+                        id: sixth_place
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_sixth.width - 5, None
+                    Label:
+                        id: sixth_teacher
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_sixth.width - 5, None
+                    Label:
+                        id: sixth_time
+                        text:
+                        color: 0,0,0,1
+                        font_size: '12sp'
+                        text_size: box_sixth.width - 5, None
+
+
+        TabbedPanelHeader:
+            id: my_header
+            content: tab_me_content.__self__
+            on_press:
+                root.download_me()
+            Scatter:
+                do_translation: False
+                do_scale: False
+                do_rotation: False
+                auto_bring_to_front: False
+                rotation: 0
+                size_hint: None, None
+                size: img.size
+                center: my_header.center
+                Image:
+                    id: img
+                    source: './images/logos/man.png'
+                    size: my_header.size
+                    pos_hint: {'x':-0.5}
+                    allow_stretch: True
+                    keep_ratio: False
+
+        TabbedPanelHeader:
+            id: messages_header
+            content: tab_messages_content.__self__
+            on_press:
+                root.download_messages()
+            Scatter:
+                do_translation: False
+                do_scale: False
+                do_rotation: False
+                auto_bring_to_front: False
+                rotation: 0
+                size_hint: None, None
+                size: img_mes.size
+                center: messages_header.center
+                Image:
+                    id: img_mes
+                    source: './images/logos/messages.png'
+                    size: messages_header.size
+                    pos_hint: {'x':-0.5}
+                    allow_stretch: True
+                    keep_ratio: False
+
+        TabbedPanelHeader:
+            id: news_header
+            content: tab_news_content.__self__
+            on_press:
+                root.download_news()
+            Scatter:
+                do_translation: False
+                do_scale: False
+                do_rotation: False
+                auto_bring_to_front: False
+                rotation: 0
+                size_hint: None, None
+                size: img_news.size
+                center: news_header.center
+                Image:
+                    id: img_news
+                    source: './images/logos/news.png'
+                    size: news_header.size
+                    pos_hint: {'x':-0.5}
+                    allow_stretch: True
+                    keep_ratio: False
+
+        TabbedPanelHeader:
+            id: subscribed_header
+            content: tab_subscribed_content.__self__
+            on_press:
+                root.download_subscribed()
+            Scatter:
+                do_translation: False
+                do_scale: False
+                do_rotation: False
+                auto_bring_to_front: False
+                rotation: 0
+                size_hint: None, None
+                size: img_subscribed.size
+                center: subscribed_header.center
+                Image:
+                    id: img_subscribed
+                    source: './images/logos/subscribed.png'
+                    size: subscribed_header.size
+                    pos_hint: {'x':-0.5}
+                    allow_stretch: True
+                    keep_ratio: False
+
+        TabbedPanelHeader:
+            id: schedule_header
+            content: tab_schedule_content.__self__
+            on_press:
+                root.download_schedule()
+            Scatter:
+                do_translation: False
+                do_scale: False
+                do_rotation: False
+                auto_bring_to_front: False
+                rotation: 0
+                size_hint: None, None
+                size: img_schedule.size
+                center: schedule_header.center
+                Image:
+                    id: img_schedule
+                    source: './images/logos/calendar.png'
+                    size: schedule_header.size
+                    pos_hint: {'x':-0.5}
+                    allow_stretch: True
+                    keep_ratio: False
+
+<SettingsScreen>:
+    name: 'SettingsScreen'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 0.458, 0.219, 1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'We are already working on it`s developing!'
+            text_color: 0,0,0,1
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, .1
+            Button:
+                text: 'Назад'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'InterfaceScreen'
+            Button:
+                text: 'Сменить пользователя'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.changeuser()
+                    app.stop()
+                    root.manager.current = 'LoginScreen'
